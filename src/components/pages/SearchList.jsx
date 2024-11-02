@@ -5,6 +5,7 @@ const SearchList = () => {
     return (
         <>
             <Navbar />
+            
         </>
     )
 }
