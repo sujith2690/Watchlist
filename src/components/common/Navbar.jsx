@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/images/logo.png';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { H4 } from './Typography';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
@@ -10,6 +10,7 @@ import 'aos/dist/aos.css';
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate(); // Use for redirecting after logout
 
     const navigation = [
         { name: 'Home', href: '/', current: true },
@@ -24,39 +25,59 @@ const Navbar = () => {
         });
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem('users');
+        localStorage.removeItem('user'); // Also clear single user data if stored under 'user'
+        navigate('/'); // Redirect to home or login page
+    };
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
     }
-
     return (
         <>
             <div className="w-full md:w-64 md:h-full bg-inherit text-white flex flex-row md:flex-col">
-                <div
-                    className="p-2 flex flex-row items-center justify-center md:flex-col"
-                    data-aos="fade-right"
-                >
-                    <Link to="/" className='flex items-center md:flex-col'>
-                        <img src={logo} className='w-1/6 md:w-full' loading="lazy" alt="Logo" />
-                        <H4 className='font-semibold md:flex text-center justify-center'>Watch List</H4>
-                    </Link>
-                </div>
-
-                <nav className="hidden md:flex flex-col flex-1 px-4 py-6 space-y-2" data-aos="fade-down">
-                    {navigation.map((item, i) => (
-                        <Link
-                            key={i}
-                            to={item.href}
-                            className={classNames(
-                                item.href === location.pathname
-                                    ? 'cursor-pointer duration-300 bg-gray-800 hover:bg-gray-700'
-                                    : 'text-[#B5B3B3] cursor-pointer hover:text-white transition',
-                                'rounded-md px-3 py-2 flex gap-1'
-                            )}
-                        >
-                            {item.name}
+                <div className='flex flex-col justify-between  h-full'>
+                    <div
+                        className="p-2 flex flex-row items-center justify-center md:flex-col"
+                        data-aos="fade-right"
+                    >
+                        <Link to="/" className='flex items-center md:flex-col'>
+                            <img src={logo} className='w-1/6 md:w-full' loading="lazy" alt="Logo" />
+                            <H4 className='font-semibold md:flex text-center justify-center'>Watch List</H4>
                         </Link>
-                    ))}
-                </nav>
+                    </div>
+                    <nav className="hidden md:flex flex-col  flex-1 px-4 py-6 space-y-2" data-aos="fade-down">
+                        {navigation.map((item, i) => (
+                            <Link
+                                key={i}
+                                to={item.href}
+                                className={classNames(
+                                    item.href === location.pathname
+                                        ? 'cursor-pointer duration-300 bg-gray-800 hover:bg-gray-700'
+                                        : 'text-[#B5B3B3] cursor-pointer hover:text-white transition',
+                                    'rounded-md px-3 py-2 flex gap-1'
+                                )}
+                            >
+                                {item.name}
+                            </Link>
+                        ))}
+                        {/* Logout button */}
+                        <button
+                            onClick={handleLogout}
+                            className="flex md:hidden mt-4 text-[#B5B3B3] hover:text-white transition bg-gray-800 hover:bg-gray-700 rounded-md px-3 py-2"
+                        >
+                            Logout
+                        </button>
+                    </nav>
+                    <div className='hidden w-full md:flex items-center justify-center p-2'>
+                        <button
+                            onClick={handleLogout}
+                            className="mt-4 text-[#B5B3B3] w-5/6 hover:text-white transition bg-gray-800 hover:bg-gray-700 rounded-md  py-2"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                </div>
 
                 <div
                     className="md:hidden flex items-center p-5"
@@ -92,6 +113,16 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ))}
+                    {/* Logout button in mobile menu */}
+                    <button
+                        onClick={() => {
+                            handleLogout();
+                            setIsMenuOpen(false);
+                        }}
+                        className="text-[#B5B3B3] hover:text-white transition bg-gray-800 hover:bg-gray-700 rounded-md px-3 py-2 w-full text-center"
+                    >
+                        Logout
+                    </button>
                 </div>
             )}
         </>
