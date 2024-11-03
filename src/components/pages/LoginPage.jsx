@@ -23,20 +23,23 @@ const LoginPage = () => {
         if (email) {
             const emailPrefix = email.split('@')[0];
             const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-            const userExists = existingUsers.some(user => user.preferences.email === email);
-            if (!userExists) {
-                const userData = {
+            const userIndex = existingUsers.findIndex(user => user.preferences.email === email);
+            if (userIndex === -1) {
+                // New user
+                const newUser = {
                     loggedIn: true,
-                    preferences: { email: email },
+                    preferences: { email },
+                    watchList: []  // Initialize with an empty watch list
                 };
-                existingUsers.push(userData);
-                localStorage.setItem('users', JSON.stringify(existingUsers));
-                toast.success(`Welcome ${emailPrefix}`);
-                navigate('/')
+                existingUsers.push(newUser);
             } else {
-                toast.info(`User already logged in as: ${emailPrefix}`);
+                // Existing user: update logged-in status
+                existingUsers[userIndex].loggedIn = true;
             }
-            setEmail('');
+
+            localStorage.setItem('users', JSON.stringify(existingUsers));
+            toast.success(`Welcome ${emailPrefix}`);
+            navigate('/');
         } else {
             alert(`Enter Your Email`);
         }

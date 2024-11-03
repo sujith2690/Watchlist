@@ -11,6 +11,7 @@ const App = () => {
   const Testing = lazy(() => import('./components/pages/TestingPage'));
   const SearchList = lazy(() => import('./components/pages/SearchList'));
   const SingleData = lazy(() => import('./components/pages/SingleData'));
+  const Search = lazy(() => import('./components/pages/Search'));
 
   const location = useLocation();
 
@@ -32,7 +33,8 @@ const App = () => {
             <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/search-list" element={<ProtectedRoute><SearchList /></ProtectedRoute>} />
+            <Route path="/watch-list" element={<ProtectedRoute><SearchList /></ProtectedRoute>} />
+            <Route path="/search/:path" element={<ProtectedRoute><SearchList /></ProtectedRoute>} />
             <Route path="/:id" element={<ProtectedRoute><SingleData /></ProtectedRoute>} />
             <Route path="/testing" element={<Testing />} />
             <Route path="/error" element={<Error />} />

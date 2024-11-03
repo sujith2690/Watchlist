@@ -12,7 +12,6 @@ const HomePage = () => {
         <div className='h-full'>
             <SearchBox  />
             <Banner />
-            <Categories />
         </div>
     )
 }

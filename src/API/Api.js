@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const API_BEARER_TOKEN = import.meta.env.VITE_API_BEARER_TOKEN;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const API = axios.create({
     baseURL: API_BASE_URL,
@@ -18,10 +19,11 @@ API.interceptors.request.use((req) => {
 });
 
 export const BannerApi = () => API.get(`/movie/popular?language=en-US&page=1`)
-export const searchQuery = (query) => API.get(`/search/movie?query=${query}&api_key=0ba5df6f236e387ec449e9fc167ed7ef`)
+
+export const searchQuery = (query) => API.get(`/search/movie?query=${query}&api_key=${API_KEY}`)
 
 export const videoDetails =(account_id)=>API.get(`/movie/${account_id}`)
-// export const Action = () => API.get(`discover/tv?api_key=${API_key}&with_networks=213`)
 
-// curl --request GET \
-//      --url 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=0ba5df6f236e387ec449e9fc167ed7ef'
+// export const videoPlayApi = (movie_id) => API.get(`/movie/${movie_id}/videos`)
+export const videoPlayApi = (movie_id) => API.get(`/movie/${movie_id}/videos?api_key=${API_KEY}&language=en-US`)
+

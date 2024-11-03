@@ -35,7 +35,7 @@ const SearchBox = () => {
         try {
             const { data } = await searchQuery(searchTerm);
             const limitedResults = data.results.slice(0, 5);
-            console.log(data.results[0].backdrop_path,'------------backdrop_path')
+            console.log(data.results[0].backdrop_path, '------------backdrop_path')
             setSearchOut(limitedResults);
 
             setTimeout(() => {
@@ -53,17 +53,20 @@ const SearchBox = () => {
     const handleNavigation = (data) => {
         navigate(`/${data.id}`)
     }
+    const handlePath = () => {
+        navigate(`/search/${query}`)
+    }
     return (
-        <div className='mb-4 gap-2 p-5'>
+        <div className='gap-2 p-5'>
             <div className='bg-[#050E17] grid gap-2 rounded-xl outline-none p-2 px-4 transition duration-200 border-[#22AAD2] ring-2 ring-[#22AAD259]'>
                 <form onSubmit={(e) => e.preventDefault()} className='flex gap-2 items-center justify-center w-full'>
-                    <CiSearch className='w-10 h-10' />
+                    <CiSearch className='w-5 h-5 md:w-10  md:h-10' />
                     <input
                         type="text"
                         id="search"
                         value={query}
                         onChange={handleInputChange}
-                        className='border-[#22AAD259] w-full bg-[#0A1828] border-t-2 rounded-xl outline-none p-2 px-4 transition duration-200 focus:border-[#22AAD2] focus:ring-2 focus:ring-[#22AAD259]'
+                        className='border-[#22AAD259] text-sm w-full bg-[#0A1828] border-t-2 rounded-xl outline-none p-2 px-4 transition duration-200 focus:border-[#22AAD2] focus:ring-2 focus:ring-[#22AAD259]'
                         placeholder="Search Videos"
                         data-aos="fade-left"
                         data-aos-duration="1000"
@@ -81,10 +84,10 @@ const SearchBox = () => {
 
                 {!loading && searchOut.length > 0 ? (
                     <>
-                        <div className='md:flex gap-2 items-center space-y-2 p-2'>
+                        <div className='md:flex gap-2 items-center justify-center space-y-2 p-2'>
                             {
                                 searchOut.map((item, i) => (
-                                    <div key={i} onClick={()=>handleNavigation(item)} className='flex flex-col gap-2 cursor-pointer'>
+                                    <div key={i} onClick={() => handleNavigation(item)} className='flex flex-col gap-2 cursor-pointer'>
                                         <div>
                                             <img
                                                 src={VITE_IMAGE_URL + item.backdrop_path}
@@ -99,7 +102,7 @@ const SearchBox = () => {
                                 ))
                             }
                         </div>
-                        <div className='bg-red-700 text-center rounded cursor-pointer'>
+                        <div onClick={handlePath} className='bg-red-700 text-center rounded cursor-pointer'>
                             <H5>Show More</H5>
                         </div>
                     </>

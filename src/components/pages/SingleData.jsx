@@ -12,16 +12,15 @@ const SingleData = () => {
     const [currentMovie, setCurrentMovie] = useState(null); // Initialize as null
     const { id } = useParams();
 
-    const getVideo = async (id) => {
+    const getVideoDetails = async (id) => {
         const { data } = await videoDetails(id);
         setCurrentMovie(data);
         console.log(data, '--------------');
     };
-
     useEffect(() => {
         AOS.init({ duration: 1000, easing: 'ease-in-out' }); // Initialize AOS with custom settings
         if (id) {
-            getVideo(id);
+            getVideoDetails(id);
         }
     }, [id]);
 

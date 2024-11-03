@@ -14,7 +14,7 @@ const Navbar = () => {
 
     const navigation = [
         { name: 'Home', href: '/', current: true },
-        { name: 'Search List', href: '/search-list', current: false },
+        { name: 'Watch List', href: '/watch-list', current: false },
     ];
 
     useEffect(() => {
