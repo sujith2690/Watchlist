@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { H5 } from '../common/Typography';
 import logo1 from '../../assets/images/logo copy.png';
 import AOS from 'aos';
-import 'aos/dist/aos.css'; // Import AOS styles
+import 'aos/dist/aos.css'; 
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
 
     useEffect(() => {
-        AOS.init(); // Initialize AOS
+        AOS.init(); 
     }, []);
 
     const handleEmailChange = (e) => {
@@ -25,15 +25,13 @@ const LoginPage = () => {
             const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
             const userIndex = existingUsers.findIndex(user => user.preferences.email === email);
             if (userIndex === -1) {
-                // New user
                 const newUser = {
                     loggedIn: true,
                     preferences: { email },
-                    watchList: []  // Initialize with an empty watch list
+                    watchList: []  
                 };
                 existingUsers.push(newUser);
             } else {
-                // Existing user: update logged-in status
                 existingUsers[userIndex].loggedIn = true;
             }
 
@@ -50,8 +48,8 @@ const LoginPage = () => {
             <form
                 onSubmit={handleLogin}
                 className='flex flex-col bg-slate-800 p-2 md:p-10 rounded-lg shadow-lg gap-3 md:w-1/2'
-                data-aos="fade-up" // Apply fade-up animation
-                data-aos-duration="1000" // Duration of the animation
+                data-aos="fade-up" 
+                data-aos-duration="1000" 
             >
                 <div className='p-5'>
                     <div className='grid place-items-center'>
@@ -69,16 +67,16 @@ const LoginPage = () => {
                             onChange={handleEmailChange}
                             className='border-[#22AAD259] bg-[#0A1828] border-t-2 rounded-xl outline-none p-2 px-4 transition duration-200 focus:border-[#22AAD2] focus:ring-2 focus:ring-[#22AAD259]'
                             placeholder="Enter your email"
-                            data-aos="fade-left" // Apply fade-left animation to input
-                            data-aos-duration="1000" // Duration of the animation
+                            data-aos="fade-left" 
+                            data-aos-duration="1000" 
                         />
                     </div>
                     <div className='flex justify-center'>
                         <button
                             type='submit'
                             className='w-full p-2 bg-red-700 text-white rounded-lg hover:bg-red-800 transition duration-200'
-                            data-aos="fade-up" // Apply fade-up animation to button
-                            data-aos-duration="1000" // Duration of the animation
+                            data-aos="fade-up"
+                            data-aos-duration="1000" 
                         >
                             Login
                         </button>

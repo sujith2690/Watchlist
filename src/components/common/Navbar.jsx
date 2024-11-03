@@ -10,7 +10,7 @@ import 'aos/dist/aos.css';
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
-    const navigate = useNavigate(); // Use for redirecting after logout
+    const navigate = useNavigate(); 
 
     const navigation = [
         { name: 'Home', href: '/', current: true },
@@ -26,17 +26,22 @@ const Navbar = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('users');
-        localStorage.removeItem('user'); // Also clear single user data if stored under 'user'
-        navigate('/'); // Redirect to home or login page
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const loggedInUserIndex = users.findIndex(user => user.loggedIn);
+        if (loggedInUserIndex !== -1) {
+            users[loggedInUserIndex].loggedIn = false; 
+            localStorage.setItem('users', JSON.stringify(users)); 
+        }
+        navigate('/'); 
     };
+
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
     }
     return (
         <>
             <div className="w-full md:w-64 md:h-full bg-inherit text-white flex flex-row md:flex-col">
-                <div className='flex flex-col justify-between  h-full'>
+                <div className='flex flex-col  justify-between  h-full'>
                     <div
                         className="p-2 flex flex-row items-center justify-center md:flex-col"
                         data-aos="fade-right"
@@ -61,7 +66,6 @@ const Navbar = () => {
                                 {item.name}
                             </Link>
                         ))}
-                        {/* Logout button */}
                         <button
                             onClick={handleLogout}
                             className="flex md:hidden mt-4 text-[#B5B3B3] hover:text-white transition bg-gray-800 hover:bg-gray-700 rounded-md px-3 py-2"
@@ -113,7 +117,6 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ))}
-                    {/* Logout button in mobile menu */}
                     <button
                         onClick={() => {
                             handleLogout();

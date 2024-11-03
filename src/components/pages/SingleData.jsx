@@ -9,16 +9,21 @@ import 'aos/dist/aos.css';
 const VITE_IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
 const SingleData = () => {
-    const [currentMovie, setCurrentMovie] = useState(null); // Initialize as null
+    const [currentMovie, setCurrentMovie] = useState(null);
     const { id } = useParams();
 
     const getVideoDetails = async (id) => {
-        const { data } = await videoDetails(id);
-        setCurrentMovie(data);
-        console.log(data, '--------------');
+        try {
+            const { data } = await videoDetails(id);
+            setCurrentMovie(data);
+            console.log(data, '--------------');
+        } catch (error) {
+            console.error('Error fetching video details:', error.message);
+            navigate('/error');
+        }
     };
     useEffect(() => {
-        AOS.init({ duration: 1000, easing: 'ease-in-out' }); // Initialize AOS with custom settings
+        AOS.init({ duration: 1000, easing: 'ease-in-out' }); 
         if (id) {
             getVideoDetails(id);
         }

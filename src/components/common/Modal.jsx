@@ -1,6 +1,5 @@
 import React from 'react'
 import YouTube from 'react-youtube';
-import { FaTimes } from "react-icons/fa";
 
 const Modal = ({ videoId, handlePlayVideo }) => {
 
@@ -9,10 +8,10 @@ const Modal = ({ videoId, handlePlayVideo }) => {
             handlePlayVideo();
         }
     };
-    
+
     const opts = {
-        // height: "390",
-        // width: "100%",
+        height: "390",
+        width: "100%",
         playerVars: {
             autoplay: 1,
         },
@@ -24,7 +23,7 @@ const Modal = ({ videoId, handlePlayVideo }) => {
             className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
         >
             <div className="w-full max-w-3xl aspect-w-16 aspect-h-9">
-                <YouTube videoId={videoId} opts={opts} className="w-full h-full" />
+                <YouTube videoId={videoId} opts={opts} className=" md:w-full  md:h-full" />
             </div>
         </div>
     )

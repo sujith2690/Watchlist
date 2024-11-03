@@ -24,6 +24,5 @@ export const searchQuery = (query) => API.get(`/search/movie?query=${query}&api_
 
 export const videoDetails =(account_id)=>API.get(`/movie/${account_id}`)
 
-// export const videoPlayApi = (movie_id) => API.get(`/movie/${movie_id}/videos`)
 export const videoPlayApi = (movie_id) => API.get(`/movie/${movie_id}/videos?api_key=${API_KEY}&language=en-US`)
 

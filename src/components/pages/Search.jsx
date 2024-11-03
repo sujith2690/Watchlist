@@ -14,7 +14,7 @@ const Search = () => {
         try {
             const response = await searchQuery(path);
             console.log(response, 'API response');
-            setContent(response.data.results || []); // Update according to response structure
+            setContent(response.data.results || []); 
         } catch (error) {
             console.error("Error fetching data:", error);
         }
