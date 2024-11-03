@@ -3,10 +3,12 @@ import { BannerApi } from '../../API/Api';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { H1, H3, H4, P } from '../common/Typography';
+import { useNavigate } from 'react-router-dom';
 
 const VITE_IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
 const Banner = () => {
+    const navigate = useNavigate()
     const [movies, setMovies] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -33,8 +35,13 @@ const Banner = () => {
 
     const currentMovie = movies[currentIndex] || {};
 
+    const handleNavigation = (data) => {
+        console.log(data.id, '---------data')
+        navigate(`/${data.id}`)
+    }
+
     return (
-        <div
+        <div onClick={() => handleNavigation(currentMovie)}
             style={{ backgroundImage: `url(${currentMovie.backdrop_path ? VITE_IMAGE_URL + currentMovie.backdrop_path : ""})` }}
             className="banner h-[448px] bg-cover text-white relative"
         >

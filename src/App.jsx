@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loading from './components/pages/Loading';
 import Navbar from './components/common/Navbar';
@@ -10,6 +10,7 @@ const App = () => {
   const Error = lazy(() => import('./components/pages/ErrorPage'));
   const Testing = lazy(() => import('./components/pages/TestingPage'));
   const SearchList = lazy(() => import('./components/pages/SearchList'));
+  const SingleData = lazy(() => import('./components/pages/SingleData'));
 
   const location = useLocation();
 
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/search-list" element={<ProtectedRoute><SearchList /></ProtectedRoute>} />
+            <Route path="/:id" element={<ProtectedRoute><SingleData /></ProtectedRoute>} />
             <Route path="/testing" element={<Testing />} />
             <Route path="/error" element={<Error />} />
             <Route path="*" element={<Error />} />
