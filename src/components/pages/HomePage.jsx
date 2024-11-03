@@ -6,8 +6,8 @@ import SearchBox from '../common/SearchBox'
 const HomePage = () => {
     return (
         <div className=''>
-            <Banner />
             <SearchBox  />
+            <Banner />
         </div>
     )
 }
