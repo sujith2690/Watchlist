@@ -34,7 +34,7 @@ const SingleData = () => {
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full p-5">
             <div
                 className="relative w-full h-[200px] md:h-[300px] lg:h-[400px] overflow-hidden"
                 data-aos="fade-up"
